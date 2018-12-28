@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RectangularMap {
     private int width;
@@ -29,12 +31,34 @@ public class RectangularMap {
         return height;
     }
 
-    public void addPlant(){//jako argument obszar
+    public void addPlant(Position position, int maxEnergy){
+        plants.put(position,new Plant(position, ThreadLocalRandom.current().nextInt(1,maxEnergy + 1 )));
+    }
 
+    public void addAnimal(Animal animal){
+        animals.put(animal.getPosition(),animal);
     }
 
     public boolean canMoveTo(Position position){
         Animal animal = animals.get(position);
         return animal == null;
+    }
+    public MapElement objectAt(Position position){
+        if(animals.get(position)!=null){
+            if(position.x == 2 && position.y == 2) System.out.println("sss");
+            return animals.get(position);
+        }
+        else if(plants.get(position) != null){
+            return plants.get(position);
+        }
+        else{
+            return null;
+        }
+    }
+
+    public void positionChanged(Position oldPosition){
+        Animal animal = getAnimals().get(oldPosition);
+        getAnimals().remove(oldPosition);
+        getAnimals().put(animal.getPosition(),animal);
     }
 }
