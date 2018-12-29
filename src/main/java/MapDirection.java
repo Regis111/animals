@@ -32,4 +32,39 @@ public enum MapDirection {
                 return "Błędne dane";
         }
     }
+    public Position vector(){
+        int x = 0;
+        int y = 0;
+        switch (this){
+            case SOUTH_WEST:
+                x = -1;
+                y = -1;
+                break;
+            case SOUTH_EAST:
+                x = +1;
+                y = -1;
+                break;
+            case NORTH_WEST:
+                x = -1;
+                y = +1;
+                break;
+            case NORTH_EAST:
+                x = +1;
+                y = +1;
+                break;
+            case NORTH:
+                y = +1;
+                break;
+            case SOUTH:
+                y = -1;
+                break;
+            case WEST:
+                x = -1;
+                break;
+            case EAST:
+                x = +1;
+                break;
+        }
+        return new Position(x,y);
+    }
 }

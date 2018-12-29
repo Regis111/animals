@@ -15,7 +15,9 @@ public class Simulation {
 
     public void simulateOneDay(){
         moveAnimals();
+        System.out.println("animals: " + map.getAnimals().keySet());
         generatePlants();
+        System.out.println("plants: " + map.getPlants().keySet());
     }
 
     public RectangularMap getMap(){
@@ -33,19 +35,22 @@ public class Simulation {
                 map.getAnimals().remove(animal);
             }
             if(animal.getEnergy() >= energyRequiredToGiveBirth){
-                Animal smallAnimal = animal.getChild();
+                Animal smallAnimal = animal.getChild(map);
                 map.getAnimals().put(smallAnimal.getPosition(),smallAnimal);
             }
         }
     }
 
     private void generatePlants(){
-        int jungleX = ThreadLocalRandom.current().nextInt((int)(map.getWidth()*0.4),(int)(map.getWidth()*0.6 + 1));
-        int jungleY = ThreadLocalRandom.current().nextInt((int)(map.getHeight()*0.4),(int)(map.getHeight()*0.6 + 1));
+        Position jungleLowerLeft = new Position((int)(map.getWidth()*0.4),(int)(map.getHeight()*0.4));
+        Position jungleUpperRight = new Position((int)(map.getWidth()*0.6) , (int)(map.getHeight()*0.6));
+
+        int jungleX = ThreadLocalRandom.current().nextInt(jungleLowerLeft.x,jungleUpperRight.x + 1);
+        int jungleY = ThreadLocalRandom.current().nextInt(jungleLowerLeft.y,jungleUpperRight.y + 1);
         ///1. random number z przedziału (w/2 - 0.1w, w/2 + 0.1w) oraz 2.random number z przedziału (y/2 - 0.1y,y/2 + 0.1y)
         //i to jest roślina w dzungli
-        int notJungleX1 = ThreadLocalRandom.current().nextInt((0),(int)(map.getWidth()*0.4 + 1));
-        int notJungleX2 = ThreadLocalRandom.current().nextInt((int)(map.getWidth()*0.6),(map.getWidth()));
+        int notJungleX1 = ThreadLocalRandom.current().nextInt(0,jungleLowerLeft.x + 1);
+        int notJungleX2 = ThreadLocalRandom.current().nextInt(jungleUpperRight.x,map.getWidth());
 
         int random1 = ThreadLocalRandom.current().nextInt(0,2);
         int notJungleX;
@@ -56,8 +61,8 @@ public class Simulation {
             notJungleX = notJungleX2;
         }
 
-        int notJungleY1 = ThreadLocalRandom.current().nextInt((int)(0),(int)(map.getHeight()*0.4 + 1));
-        int notJungleY2 = ThreadLocalRandom.current().nextInt((int)(map.getHeight()*0.6),(int)(map.getHeight()));
+        int notJungleY1 = ThreadLocalRandom.current().nextInt(0,jungleLowerLeft.y + 1);
+        int notJungleY2 = ThreadLocalRandom.current().nextInt(jungleUpperRight.y , map.getHeight());
 
         int random2 = ThreadLocalRandom.current().nextInt(0,2);
         int notJungleY;
@@ -71,6 +76,8 @@ public class Simulation {
         //i to jest roślina poza dzungla
         map.addPlant(new Position(jungleX,jungleY), maxEnergyOfPlant);
         map.addPlant(new Position(notJungleX,notJungleY), maxEnergyOfPlant);
+
+
     }
 
 
