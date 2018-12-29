@@ -54,7 +54,7 @@ public class Animal extends MapElement{
     }
 
     public void move(RectangularMap map){
-        int array [] = generateArray();
+        Integer array [] = generateArray();
         boolean canMoveTo = false;
         Position newPosition = null;
         int x0 = getPosition().x, y0 = getPosition().y;
@@ -114,9 +114,9 @@ public class Animal extends MapElement{
     /*
     generates array of int-s in range of 0-7 in order to take random number from it
      */
-    private int [] generateArray(){
+    public Integer [] generateArray(){
         int sum = genes.stream().mapToInt(Integer::intValue).sum();
-        int [] array = new int [sum];
+        Integer [] array = new Integer[sum];
         int sumOfPreviousGenes = 0;
         for(int i = 0; i < genes.size() ; i++){
             int value = genes.get(i);

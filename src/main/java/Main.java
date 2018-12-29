@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
@@ -6,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String [] args){
-        Scanner reader = new Scanner(System.in);
+        /*Scanner reader = new Scanner(System.in);
         //System.out.print("Podaj długość symulacji w dniach: ");
         int numberOfDays = 3;
         //System.out.print("Energia wystarczająca na rozmnażanie to: ");
@@ -29,5 +30,7 @@ public class Main {
             System.out.println(new MapVisualizer(simulation.getMap()).draw(new Position(0,0),new Position(width,height)));
             simulation.simulateOneDay();
         }
+        */
     }
+
 }
