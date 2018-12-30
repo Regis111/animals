@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class Display extends JFrame implements ActionListener {
 
-    private Timer timer = new Timer(2500,this);
+    private Timer timer = new Timer(2000,this);
     private JTextArea area;
     private Simulation simulation;
 
@@ -13,7 +13,7 @@ public class Display extends JFrame implements ActionListener {
         this.simulation = simulation;
         area = new JTextArea("");
         area.setEditable(false);
-        area.setFont(new Font("Courier", Font.PLAIN,20));
+        area.setFont(new Font("Monospaced", Font.PLAIN,20));
         add(area);
         setResizable(false);
         setSize(600,600);
