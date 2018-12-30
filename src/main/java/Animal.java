@@ -3,12 +3,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Animal extends MapElement{
     private ArrayList<Integer> genes;
+    private int num;
 
-    public Animal(ArrayList<Integer> genes, int energy, Position position){
+    public Animal(ArrayList<Integer> genes, int energy, Position position,int num){
         super(position,energy);
         this.genes = genes;
+        this.num = num;
     }
-    public Animal(int energy, Position position){
+    public Animal(int energy, Position position,int num){
         super(position,energy);
         ArrayList<Integer> genes = new ArrayList<>();
         genes.add(0, ThreadLocalRandom.current().nextInt(0,8));
@@ -20,10 +22,12 @@ public class Animal extends MapElement{
         genes.add(6, ThreadLocalRandom.current().nextInt(0,8));
         genes.add(7, ThreadLocalRandom.current().nextInt(0,8));
         this.genes = genes;
+        this.num = num;
     }
 
+    @Override
     public String toString(){
-        return "A";
+        return String.valueOf(num);
     }
 
     public Animal getChild(RectangularMap map){
@@ -41,14 +45,17 @@ public class Animal extends MapElement{
         else {
             newGenes.add(randomIndex,value);
         }
-        Position childPosition = animalBeyondTheMap(getPosition().x, getPosition().y + 1,map);
-        return new Animal(newGenes,this.getEnergy() / 2,childPosition);
+        Position childPosition = animalBeyondTheMap(getPosition().x + 1, getPosition().y + 1,map);
+        Animal child =  new Animal(newGenes,this.getEnergy() / 2,childPosition,map.getAnimals().size());
+        setEnergy(getEnergy()-getEnergy()/2);
+        return child;
     }
 
     public void eat(RectangularMap map){
         Plant food = map.getPlants().get(getPosition());
         if(food != null){
             setEnergy(getEnergy() + food.getEnergy());
+            System.out.println(toString() + " zjadł " + food.getEnergy() + " energii");
         }
         map.getPlants().remove(getPosition());
     }

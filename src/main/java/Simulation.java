@@ -15,9 +15,13 @@ public class Simulation {
 
     public void simulateOneDay(){
         moveAnimals();
-        System.out.println("animals: " + map.getAnimals().keySet());
+        System.out.println("animals: " + map.getAnimals().values().stream()
+                .map(animal -> "<" + animal.getPosition() + "," + animal.getEnergy() + "> " + "\"" + animal.toString() + "\"")
+                .collect(Collectors.toList()));
         generatePlants();
-        System.out.println("plants: " + map.getPlants().keySet());
+        System.out.println("plants: " + map.getPlants().values().stream()
+                .map(plant -> "<" + plant.getPosition() + "," + plant.getEnergy() + ">")
+                .collect(Collectors.toList()));
     }
 
     public RectangularMap getMap(){
@@ -32,7 +36,8 @@ public class Simulation {
             animal.eat(map);
             animal.setEnergy(animal.getEnergy() - 1);
             if (animal.getEnergy() == 0){
-                map.getAnimals().remove(animal);
+                System.out.println("moveAnimals umiera");
+                map.getAnimals().remove(animal.getPosition(),animal);
             }
             if(animal.getEnergy() >= energyRequiredToGiveBirth){
                 Animal smallAnimal = animal.getChild(map);
