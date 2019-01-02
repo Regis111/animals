@@ -3,14 +3,12 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Animal extends MapElement{
     private ArrayList<Integer> genes;
-    private int num;
 
-    public Animal(ArrayList<Integer> genes, int energy, Position position,int num){
+    public Animal(ArrayList<Integer> genes, int energy, Position position){
         super(position,energy);
         this.genes = genes;
-        this.num = num;
     }
-    public Animal(int energy, Position position,int num){
+    public Animal(int energy, Position position){
         super(position,energy);
         ArrayList<Integer> genes = new ArrayList<>();
         genes.add(0, ThreadLocalRandom.current().nextInt(0,8));
@@ -22,12 +20,11 @@ public class Animal extends MapElement{
         genes.add(6, ThreadLocalRandom.current().nextInt(0,8));
         genes.add(7, ThreadLocalRandom.current().nextInt(0,8));
         this.genes = genes;
-        this.num = num;
     }
 
     @Override
     public String toString(){
-        return String.valueOf(num);
+        return "A";
     }
 
     public Animal getChild(RectangularMap map){
@@ -39,14 +36,14 @@ public class Animal extends MapElement{
         if(addOrDecreaseOrNothing == 2){
             newGenes.add(randomIndex,value + 1);
         }
-        else if(addOrDecreaseOrNothing == 0){
+        else if(addOrDecreaseOrNothing == 0 && value > 0){
             newGenes.add(randomIndex,value - 1);
         }
         else {
             newGenes.add(randomIndex,value);
         }
         Position childPosition = animalBeyondTheMap(getPosition().x + 1, getPosition().y + 1,map);
-        Animal child =  new Animal(newGenes,this.getEnergy() / 2,childPosition,map.getAnimals().size());
+        Animal child =  new Animal(newGenes,this.getEnergy() / 2,childPosition);
         setEnergy(getEnergy()-getEnergy()/2);
         return child;
     }
@@ -68,7 +65,7 @@ public class Animal extends MapElement{
         while(!canMoveTo){
             int randomNum = ThreadLocalRandom.current().nextInt(0, array.length);
             int direction = array[randomNum];
-            MapDirection mapDirection = toMapDirectionFromString(direction);
+            MapDirection mapDirection = toMapDirectionFromInt(direction);
             int x1 = x0 + mapDirection.vector().x;
             int y1 = y0 + mapDirection.vector().y;
             newPosition = animalBeyondTheMap(x1,y1,map);
@@ -96,7 +93,7 @@ public class Animal extends MapElement{
         return new Position(x1,y1);
     }
 
-    private MapDirection toMapDirectionFromString(int number){
+    private MapDirection toMapDirectionFromInt(int number){
         switch (number){
             case 0:
                 return MapDirection.NORTH;

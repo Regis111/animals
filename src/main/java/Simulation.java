@@ -36,7 +36,6 @@ public class Simulation {
             animal.eat(map);
             animal.setEnergy(animal.getEnergy() - 1);
             if (animal.getEnergy() == 0){
-                System.out.println("moveAnimals umiera");
                 map.getAnimals().remove(animal.getPosition(),animal);
             }
             if(animal.getEnergy() >= energyRequiredToGiveBirth){
@@ -71,6 +70,7 @@ public class Simulation {
 
         int random2 = ThreadLocalRandom.current().nextInt(0,2);
         int notJungleY;
+
         if(random2 == 0){
             notJungleY = notJungleY1;
         }
@@ -81,9 +81,5 @@ public class Simulation {
         //i to jest roślina poza dzungla
         map.addPlant(new Position(jungleX,jungleY), maxEnergyOfPlant);
         map.addPlant(new Position(notJungleX,notJungleY), maxEnergyOfPlant);
-
-
     }
-
-
 }

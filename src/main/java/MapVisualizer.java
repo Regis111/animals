@@ -50,9 +50,9 @@ public class MapVisualizer {
 
     private String drawObject(Position currentPosition) {
         String result;
-        MapElement object = this.map.objectAt(currentPosition);
-        if (object != null) {
-            result = object.toString();
+        MapElement element = this.map.objectAt(currentPosition);
+        if (element != null) {
+            result = element.toString();
         } else {
             result = EMPTY_CELL;
         }

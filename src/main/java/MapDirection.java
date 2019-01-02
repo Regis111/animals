@@ -8,7 +8,6 @@ public enum MapDirection {
     SOUTH_EAST,
     SOUTH_WEST;
 
-
     @Override
     public String toString() {
         switch (this){

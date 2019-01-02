@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -45,7 +44,6 @@ public class RectangularMap {
     }
     public MapElement objectAt(Position position){
         if(animals.get(position)!=null){
-            if(position.x == 2 && position.y == 2) System.out.println("sss");
             return animals.get(position);
         }
         else if(plants.get(position) != null){
