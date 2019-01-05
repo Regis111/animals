@@ -10,19 +10,15 @@ public class MapVisualizer {
 
     public String draw(Position lowerLeft, Position upperRight) {
         StringBuilder builder = new StringBuilder();
-        for (int i = upperRight.y + 1; i >= lowerLeft.y - 1; i--) {
-            if (i == upperRight.y + 1) {
+        for (int i = upperRight.y; i >= lowerLeft.y; i--) {
+            if (i == upperRight.y) {
                 builder.append(drawHeader(lowerLeft, upperRight));
             }
             builder.append(String.format("%3d: ", i));
             for (int j = lowerLeft.x; j <= upperRight.x + 1; j++) {
-                if (i < lowerLeft.y || i > upperRight.y) {
-                    builder.append(drawFrame(j <= upperRight.x));
-                } else {
-                    builder.append(CELL_SEGMENT);
-                    if (j <= upperRight.x) {
-                        builder.append(drawObject(new Position(j, i)));
-                    }
+                builder.append(CELL_SEGMENT);
+                if (j <= upperRight.x) {
+                    builder.append(drawObject(new Position(j, i)));
                 }
             }
             builder.append(System.lineSeparator());

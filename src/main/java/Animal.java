@@ -52,7 +52,6 @@ public class Animal extends MapElement{
         Plant food = map.getPlants().get(getPosition());
         if(food != null){
             setEnergy(getEnergy() + food.getEnergy());
-            System.out.println(toString() + " zjadł " + food.getEnergy() + " energii");
         }
         map.getPlants().remove(getPosition());
     }
@@ -79,16 +78,16 @@ public class Animal extends MapElement{
 
     private Position animalBeyondTheMap(int x1,int y1 ,RectangularMap map){
         if(x1 == -1){
-            x1 += map.getWidth();
+            x1 = map.getWidth();
         }
-        else if(x1 == map.getWidth()){
-            x1 += -map.getWidth();
+        else if(x1 == map.getWidth() + 1){
+            x1 = 0;
         }
         if(y1 == -1){
-            y1 += map.getHeight();
+            y1 = map.getHeight();
         }
-        else if(y1 == map.getHeight()){
-            y1 += -map.getHeight();
+        else if(y1 == map.getHeight() + 1){
+            y1 = 0;
         }
         return new Position(x1,y1);
     }
